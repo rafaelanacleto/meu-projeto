@@ -9,10 +9,10 @@ const api = axios.create({
 // Exemplo de serviço de Transações
 export const TransactionService = {
   getAll: async () => {
-    const response = await api.get<Transaction[]>('/transactions');
+    const response = await api.get<Transaction[]>('/TransacaoFinanceira');
     return response.data;
   },
   create: async (data: Omit<Transaction, 'id'>) => {
-    return api.post('/transactions', data);
+    return api.post('/TransacaoFinanceira', data);
   }
 };
