@@ -1,35 +1,26 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+// src/App.tsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'; // 1. Importar
+import { TransactionsPage } from './pages/TransactionsPage';
+import { Dashboard } from './pages/Dashboard';
 
-function App() {
-  const [count, setCount] = useState(0)
+// 2. Criar a instância do Client (fora do componente)
+const queryClient = new QueryClient();
 
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    // 3. Envolver toda a aplicação com o Provider
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <nav className="bg-gray-800 text-white p-4 flex gap-4">
+           {/* Seus links aqui */}
+        </nav>
 
-export default App
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/transacoes" element={<TransactionsPage />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
+  );
+}
