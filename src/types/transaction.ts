@@ -1,9 +1,13 @@
 export interface Transaction {
   id?: string;
-  description: string;
-  amount: number;
-  date: string;
-  type: '0' | '1'; // 0: Receita, 1: Despesa
-  categoryId: string;
-  bankAccountId: string;
+  descricao: string;
+  valor: number;
+  dataVencimento: string;
+  dataPagamento?: string;
+  tipo: '0' | '1'; // 0: Receita, 1: Despesa
+  categoriaId: string;
+  contaBancariaId: string;
+  createdAt?: string;
+  updatedAt?: string;
+  observacao?: string;
 }

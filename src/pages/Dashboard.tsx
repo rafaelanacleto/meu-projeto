@@ -1,8 +1,11 @@
 import { useMemo } from 'react';
 import { useTransactions } from '../hooks/useTransactions';
+import { StockCard } from '../components/StockCard';
 
 export function Dashboard() {
   const { transactions, isLoading } = useTransactions();
+  // Lista dos seus ativos reais para monitorar
+  const meusAtivos = ['MXRF11', 'KNRI11', 'XPML11', 'VGIR11'];
 
   // Cálculo de Saldo, Receitas e Despesas
   // O useMemo garante que isso só rode se o array 'transactions' mudar
@@ -10,8 +13,8 @@ export function Dashboard() {
     if (!transactions) return { total: 0, income: 0, expense: 0 };
 
     return transactions.reduce((acc, item) => {
-      const amount = Number(item.amount);
-      if (item.type === '0') { // Receita
+      const amount = Number(item.valor);
+      if (item.tipo === '1') { // Receita
         acc.income += amount;
         acc.total += amount;
       } else { // Despesa
@@ -25,7 +28,24 @@ export function Dashboard() {
   if (isLoading) return <p>Carregando dados financeiros...</p>;
 
   return (
-    <div className="p-8 space-y-6 bg-gray-50 min-h-screen">
+      <div className="p-8 space-y-6 bg-gray-50 min-h-screen">
+
+        <div className="space-y-8">
+        <header>
+          <h1 className="text-3xl font-bold text-white">Visão Geral</h1>
+          <p className="text-gray-500">Acompanhamento de mercado e patrimônio</p>
+        </header>
+
+        {/* Grid de Cotações */}
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {meusAtivos.map(ticker => (
+            <StockCard key={ticker} ticker={ticker} />
+          ))}
+        </section>
+
+        {/* Restante do seu Dashboard (Gráficos, etc) */}
+      </div>
+
       <h1 className="text-3xl font-bold text-gray-800">Resumo Financeiro</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
