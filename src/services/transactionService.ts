@@ -18,6 +18,7 @@ export const TransactionService = {
 
   // Método POST (para o formulário)
   create: async (data: TransactionFormData) => {
+    console.log("Payload sendo enviado para o servidor:", data); // Add this line
     const response = await api.post<Transaction>('/TransacaoFinanceira', data);
     return response.data;
   }

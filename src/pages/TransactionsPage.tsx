@@ -14,7 +14,7 @@ export function TransactionsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
         {/* Coluna do Formulário (Fica fixa ou no topo no mobile) */}
         <aside className="lg:col-span-1 sticky top-6">
-          <div className="bg-white p-1 rounded-xl shadow-sm border border-gray-100">
+          <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100">
              <TransactionForm />
           </div>
         </aside>

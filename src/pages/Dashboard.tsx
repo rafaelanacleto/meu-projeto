@@ -14,7 +14,7 @@ export function Dashboard() {
 
     return transactions.reduce((acc, item) => {
       const amount = Number(item.valor);
-      if (item.tipo === '1') { // Receita
+      if (item.tipo === 1) { // Receita
         acc.income += amount;
         acc.total += amount;
       } else { // Despesa
@@ -32,7 +32,7 @@ export function Dashboard() {
 
         <div className="space-y-8">
         <header>
-          <h1 className="text-3xl font-bold text-white">Visão Geral</h1>
+          <h1 className="text-3xl font-bold text-gray-800">Visão Geral</h1>
           <p className="text-gray-500">Acompanhamento de mercado e patrimônio</p>
         </header>
 
