@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom';
-import { LayoutDashboard, ArrowLeftRight, PieChart, Wallet } from 'lucide-react';
+import { LayoutDashboard, ArrowLeftRight, PieChart, Wallet, Settings } from 'lucide-react';
 
 export function Layout() {
   const location = useLocation();
@@ -28,6 +28,10 @@ export function Layout() {
           <Link to="/analises" className={`flex items-center gap-3 p-3 rounded-lg transition ${isActive('/analises')}`}>
             <PieChart size={30} />
             Análises
+          </Link>
+          <Link to="/categorias" className={`flex items-center gap-3 p-3 rounded-lg transition ${isActive('/categorias')}`}>
+            <Settings size={30} />
+            Categorias
           </Link>
         </nav>
 
