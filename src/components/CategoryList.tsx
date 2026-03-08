@@ -1,53 +1,71 @@
 import React from "react";
+import { useCategory } from "../hooks/useCategory";
 
-type Categoria = {
-    id: number;
-    nome: string;
-    descricao: string;
-    tipo: number;
-};
+export function CategoryList() {
+  const { categories, isLoading } = useCategory();
 
-type CategoryListProps = {
-    categorias: Categoria[];
-};
+  if (isLoading) {
+    return <p className="p-4 text-gray-500">Carregando categorias...</p>;
+  }
 
-const tipoLabel = (tipo: number) => {
-    switch (tipo) {
-        case 1:
-            return "Tipo 1";
-        default:
-            return `Tipo ${tipo}`;
-    }
-};
+  if (!categories || categories.length === 0) {
+    return <p className="p-4 text-gray-500">Nenhuma categoria encontrada.</p>;
+  }
 
-export default function CategoryList({ categorias }: CategoryListProps) {
-    if (!categorias?.length) {
-        return <p>Nenhuma categoria encontrada.</p>;
-    }
+  return (
+    <div className="w-full bg-white rounded-lg shadow-sm overflow-hidden">
+      <div className="px-4 py-5 border-b border-gray-100">
+        <h2 className="text-lg font-semibold text-gray-800">Categorias</h2>
+      </div>
 
-    return (
-        <div>
-            <h2>Lista de Categorias</h2>
-            <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                <thead>
-                    <tr>
-                        <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: "8px" }}>ID</th>
-                        <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: "8px" }}>Nome</th>
-                        <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: "8px" }}>Descrição</th>
-                        <th style={{ textAlign: "left", borderBottom: "1px solid #ddd", padding: "8px" }}>Tipo</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {categorias.map((categoria) => (
-                        <tr key={categoria.id}>
-                            <td style={{ borderBottom: "1px solid #eee", padding: "8px" }}>{categoria.id}</td>
-                            <td style={{ borderBottom: "1px solid #eee", padding: "8px" }}>{categoria.nome}</td>
-                            <td style={{ borderBottom: "1px solid #eee", padding: "8px" }}>{categoria.descricao}</td>
-                            <td style={{ borderBottom: "1px solid #eee", padding: "8px" }}>{tipoLabel(categoria.tipo)}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+      <div className="overflow-x-auto">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b bg-gray-50/50 text-gray-400 text-[10px] uppercase tracking-wider">
+              <th className="py-3 px-4 font-medium">Nome / Descrição</th>
+              <th className="py-3 px-4 font-medium text-center">Tipo</th>
+              <th className="py-3 px-4 font-medium text-center">Status</th>
+              <th className="py-3 px-4 font-medium text-right">ID</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-gray-100">
+            {categories.map((category) => (
+              <tr key={category.id} className="hover:bg-gray-50 transition-colors">
+                <td className="py-4 px-4">
+                  <p className="font-medium text-gray-800">{category.nome}</p>
+                  <p className="text-xs text-gray-400">
+                    {category.descricao || "Sem descrição"}
+                  </p>
+                </td>
+                <td className="py-4 px-4 text-center">
+                  <span
+                    className={`text-[10px] uppercase px-2 py-1 rounded-full font-bold ${
+                      category.tipo === "Receita"
+                        ? "bg-green-100 text-green-700"
+                        : "bg-red-100 text-red-700"
+                    }`}
+                  >
+                    {category.tipo}
+                  </span>
+                </td>
+                <td className="py-4 px-4 text-center">
+                  <div className="flex justify-center">
+                    <span
+                      className={`h-2 w-2 rounded-full ${
+                        category.ativo ? "bg-green-500" : "bg-gray-300"
+                      }`}
+                      title={category.ativo ? "Ativo" : "Inativo"}
+                    />
+                  </div>
+                </td>
+                <td className="py-4 px-4 text-right text-xs text-gray-400 font-mono">
+                  #{category.id}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
 }

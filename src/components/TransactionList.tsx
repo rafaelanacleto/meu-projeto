@@ -24,12 +24,12 @@ export function TransactionList() {
                 <p className="text-xs text-gray-400">{new Date(t.dataVencimento).toLocaleDateString()}</p>
                 <p className="font-medium text-gray-800">{t.descricao}</p>
               </td>
-              <td className={`py-4 px-4 text-right font-bold ${t.tipo === '1' ? 'text-green-600' : 'text-red-600'}`}>
+              <td className={`py-4 px-4 text-right font-bold ${t.tipo === 1 ? 'text-green-600' : 'text-red-600'}`}>
                 {Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(t.valor)}
               </td>
               <td className="py-4 px-4 text-center">
-                <span className={`text-[10px] uppercase px-2 py-1 rounded-full font-bold ${t.tipo === '1' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
-                  {t.tipo === '1' ? 'Receita' : 'Despesa'}
+                <span className={`text-[10px] uppercase px-2 py-1 rounded-full font-bold ${t.tipo === 1 ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                  {t.tipo === 1 ? 'Receita' : 'Despesa'}
                 </span>
               </td>
               <td className="py-4 px-4 text-sm text-gray-600">Emprestimo</td> {/* Mock até integrar Categoria do .NET */}
